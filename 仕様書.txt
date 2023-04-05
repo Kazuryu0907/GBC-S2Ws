@@ -1,0 +1,24 @@
+sendSocket() ->
+"init" 　: socket初期時
+"scored" : スコア時
+"end" 　 :　試合終了時
+"tA:B"　:　プレイヤーテーブル作成（A=プレイヤー名，B=index）
+"pA:B"　：　フォーカス変化時（A=プレイヤー名，B=index）
+"bA:B"　：　ブースト変化時（A=ブースト数，B=index）
+"sA:B"　　：　フォーカス中のプレイヤーのスコア変化時（A=index，B=スコア）
+　↑これは勝手に変えた
+
+
+済：
+name.html,
+score.html,
+icon.html,
+
+
+            if(msg == "scored"){
+                $("#goal_v").show();
+                const v = $("#goal_v").get(0);
+                v.play();
+            }
+            $("#goal_v").on("ended",function(){
+            $(this).hide();

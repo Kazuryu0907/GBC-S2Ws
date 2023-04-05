@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Pras transition</title>
+</head>
+<body>
+	<video src="gbc.mp4" id="goal_v" hidden muted></video>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+        let webSocket;
+        webSocket = new WebSocket("ws://localhost:8001");
+        webSocket.onmessage = function(message){
+            // let msg = message.data.slice(0,-1);//null文字除去
+            let msg = message.data;
+            let cmd = msg[0];
+            let splitedMsg = msg.slice(1).split(":");
+            if(msg == "scored"){
+                $("#goal_v").show();
+                const v = $("#goal_v").get(0);
+                v.play();
+            }
+            $("#goal_v").on("ended",function(){
+            $(this).hide();
+            });
+        };
+    </script>
+</body>
+</html>
