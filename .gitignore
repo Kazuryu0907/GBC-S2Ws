@@ -1,6 +1,5 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-develop-eggs/
 pyenv/
 libdatachannel/
 _index.html
