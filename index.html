@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GBC-S2Ws</title>
+    </head>
+    <body>
+        <img id="img" src="imgs/kinshi.png" alt="">
+        
+        <script type="text/javascript">
+
+            let webSocket;
+            
+            webSocket = new WebSocket("ws://localhost:8001");
+            let imgEle = document.getElementById("img");
+            webSocket.onmessage = function(message){
+              //NULL文字除去
+              imgfile = message.data.slice(0,-1) + ".png"
+                console.log(imgfile);
+                imgEle.src = "imgs/" + imgfile;
+            };
+            webSocket.onerror = function(message){
+                console.log("Websocket Error!");
+            };
+            webSocket.onopen = function(message){
+                console.log("connected");
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,5 @@
+なんで動いたか
+・client.pyのrecv_fromをasyncioのsock_recv_fromに変えた
+ー＞awaitでほかに実行権移してくれた？
+・main.pyのgetQueueからWebsockServに移したgetQueueに変更した
+ー＞mainだとawaitのsendが聞かなかったが，class内だと動いた　＜＝？？？
