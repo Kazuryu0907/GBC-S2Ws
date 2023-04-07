@@ -10,7 +10,7 @@
     
     <script type="text/javascript">
         let webSocket;
-        webSocket = new WebSocket("ws://localhost:8001");
+        webSocket = new WebSocket("ws://localhost:8001/transition");
         webSocket.onmessage = function(message){
             // let msg = message.data.slice(0,-1);//null文字除去
             let msg = message.data;

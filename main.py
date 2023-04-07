@@ -5,7 +5,7 @@ import signal
 import logging
 #CTRL+Cで強制終了
 signal.signal(signal.SIGINT,signal.SIG_DFL)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 async def async_multi_sleep():
     queue = asyncio.Queue()
     websock = WebsockServ(queue=queue)

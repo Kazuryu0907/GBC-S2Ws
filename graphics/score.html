@@ -9,7 +9,7 @@
 	<script type="text/javascript">
         let webSocket;
 
-        webSocket = new WebSocket("ws://localhost:8001");
+        webSocket = new WebSocket("ws://localhost:8001/score");
         let scoreEle = document.getElementById("score");
         let PlayerTable = {};
         webSocket.onmessage = function(message){
