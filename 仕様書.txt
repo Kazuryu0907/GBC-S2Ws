@@ -10,9 +10,10 @@ sendSocket() ->
 
 
 済：
-name.html,
-score.html,
-icon.html,
+playerName.html, PlayerName,/playerName
+score.html, score, /score
+icon.html, PlayerName, /icon
+transition.html, scored, /transition
 
 
             if(msg == "scored"){

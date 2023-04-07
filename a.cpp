@@ -4,6 +4,7 @@
 #include <WS2tcpip.h>
 #include <time.h>
 #include <unistd.h>
+#include <vector>
 
 int main(){
     int port = 12345;
@@ -30,7 +31,7 @@ int main(){
 
 
     //buff
-    char send_buf[] = "Hello";
+    char send_buf[] = "pPAn:10";
     std::cout << "waiting" << std::endl;
     while(1){
         sendto(src_socket,send_buf,sizeof(send_buf),0,(struct sockaddr*)&src_addr,sizeof(src_addr));
