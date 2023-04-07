@@ -7,6 +7,9 @@ from rich.table import Table
 from rich.live import Live
 from rich import print
 from rich.layout import Layout
+from rich.panel import Panel
+import random
+
 class WebsockServ:
     def __init__(self,queue:asyncio.Queue,layout:Layout) -> None:
         self.queue = queue
@@ -48,23 +51,14 @@ class WebsockServ:
             printTable.add_row(f"[cyan1]{UI[1:]}[/]","[green]:white_check_mark:[/]" if UI in self.connections.keys() else "[red]:cross_mark:[/]")
         return printTable
     
-    async def printUITable(self) -> None:
-        with Live() as live:
-            while 1:
-                if self.isUpdatebleTable:
-                    live.update(self.createUITable())
-                    self.isUpdatebleTable = False
-                await asyncio.sleep(0.1)
-        # print(self.layout)
-
     async def handler(self,websocket) -> None:
         self.websocket = websocket
         self.connections[websocket.path] = websocket
         # (self.connections)
         logging.info(setTermColor(f"connected:{websocket.path}",pycolor.BLUE))
-        # ここ消したら接続切れるぞ
-        # self.printUITable()
+        #  Table更新
         self.isUpdatebleTable = True
+        # ここ消したら接続切れるぞ
         async for msg in websocket:
             await websocket.send(msg)
             await asyncio.sleep(0)
@@ -74,7 +68,6 @@ class WebsockServ:
             self.connections.pop(websocket.path)
             # 切断時Table更新
             self.isUpdatebleTable = True
-            # self.printUITable()
 
     async def websocketMain(self) -> None:
         logging.info(setTermColor("web start",pycolor.BLUE))
@@ -84,5 +77,4 @@ class WebsockServ:
     async def main(self) -> None:
         task = asyncio.create_task(self.websocketMain())
         task2 = asyncio.create_task(self.sendQueue())
-        task3 = asyncio.create_task(self.printUITable())
 
