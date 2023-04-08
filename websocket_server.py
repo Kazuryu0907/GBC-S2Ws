@@ -11,12 +11,11 @@ from rich.panel import Panel
 import random
 
 class WebsockServ:
-    def __init__(self,queue:asyncio.Queue,layout:Layout) -> None:
+    def __init__(self,queue:asyncio.Queue) -> None:
         self.queue = queue
         self.isConnected = False
         self.connections = {}
         self.console = Console()
-        self.layout = layout
         self.isUpdatebleTable = True
 
     async def sendQueue(self) -> None:
@@ -43,12 +42,19 @@ class WebsockServ:
                 pass
 
     def createUITable(self) -> Table:
+        """
+        Create Websocket UI Table.
+        When all plugin is connected, self.isAllConnected will be "True" 
+        """
         printTable = Table(show_header=True,header_style="bold sea_green2")
         printTable.add_column("UI",justify="center")
         printTable.add_column("Connection Status",justify="center")
         UIs = ["/icon","/playerName","/score","/transition"]
+        self.isAllConnected = True
         for UI in UIs:
-            printTable.add_row(f"[cyan1]{UI[1:]}[/]","[green]:white_check_mark:[/]" if UI in self.connections.keys() else "[red]:cross_mark:[/]")
+            printTable.add_row(f"[{'cyan1' if UI in self.connections.keys() else 'gray66'}]{UI[1:]}[/]","[green]:white_check_mark:[/]" if UI in self.connections.keys() else "[red]:cross_mark:[/]")
+            if UI not in self.connections.keys():
+                self.isAllConnected = False
         return printTable
     
     async def handler(self,websocket) -> None:
