@@ -5,13 +5,21 @@ from pycolor import pycolor,setTermColor
 
 
 async def socketMain(queue):
-    logging.info(setTermColor("websocket start",pycolor.BLUE))
+    """
+    Create Socket Client & On recved message,Put data to Queue.
+
+    Parameters:
+    queue : asyncio.Queue
+        Queue for Websocket server.
+    """
+    logging.info(setTermColor("socket start",pycolor.BLUE))
     host = ""
     port = 12345
 
     s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
     s.bind((host,port))
     s.setblocking(False)
+    
     while 1:
         loop = asyncio.get_event_loop()
         recv,_ = await loop.sock_recvfrom(s,256)
