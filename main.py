@@ -1,10 +1,11 @@
 import asyncio
-from socket_client import socketMain
+from socket_client import SocketClient
 from websocket_server import WebsockServ
-from rich_layouts import WebsocketUI,Header,makeLayout
+from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI
 import signal
 import logging
 from rich.live import Live
+from rich.panel import Panel
 
 #CTRL+Cで強制終了
 signal.signal(signal.SIGINT,signal.SIG_DFL)
@@ -15,13 +16,14 @@ async def async_multi_sleep():
     layout["upper"].update(Header())
     queue = asyncio.Queue()
     websock = WebsockServ(queue=queue)
+    socket = SocketClient()
 
     layout["lower"]["right"].update(WebsocketUI(websock))
-
-    # layout["lower"]["left"].update(websock.createUITable())
+    # layout["main"].visible = False
+    layout["lower"]["left"].update(SocketUI(socket))
 
     # print(layout)
-    task1 = asyncio.create_task(socketMain(queue))
+    task1 = asyncio.create_task(socket.main(queue))
     task2 = asyncio.create_task(websock.main())
     with Live(layout,refresh_per_second=4) as live:
         # layout["lower"]["right"].update(WebsocketUI(websock))

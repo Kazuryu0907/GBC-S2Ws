@@ -6,28 +6,7 @@ from rich.table import Table
 from rich.layout import Layout
 from rich.align import Align
 from websocket_server import WebsockServ
-
-class WebsocketUI:
-    """Display Webscoket UI(T/F)"""
-    def __init__(self,websock:WebsockServ) -> None:
-        self.websock = websock
-        self.index = 0
-        pass
-
-    def __rich__(self) -> Panel:
-        table = self.websock.createUITable()
-        hourglass = [":hourglass:",":hourglass_flowing_sand:",":hourglass_not_done:",":hourglass_done:"]
-        titleColor = 'red' if not self.websock.isAllConnected else 'green1'
-        panel = Panel(
-            Align.center(table,vertical="middle"),
-            title=f"[b {titleColor}]WebsocketUI[/] {hourglass[self.index] if not self.websock.isAllConnected else ':white_heavy_check_mark:'}",
-        )
-        
-        self.index = 0 if self.index + 1 == len(hourglass) else self.index + 1
-
-
-        return panel
-
+from socket_client import SocketClient
 class Header:
     """
     Display Welcome Message & Version
@@ -49,6 +28,61 @@ class Header:
         panel = Panel(grid,style="")
         self.index = 0 if self.index + 1 == maxIndex else self.index + 1
         return panel
+
+class WebsocketUI:
+    """Display Webscoket UI(T/F)"""
+    def __init__(self,websock:WebsockServ) -> None:
+        self.websock = websock
+        self.index = 0
+        self.tick = 0
+        self.TICKLIM = 5
+        pass
+
+    def __rich__(self) -> Panel:
+        table = self.websock.createUITable()
+        hourglass = [":hourglass:",":hourglass_flowing_sand:",":hourglass_not_done:",":hourglass_done:"]
+        titleColor = 'red' if not self.websock.isAllConnected else 'green1'
+        allow = list("="*self.TICKLIM)
+        allow[self.tick] = "[white]>[/]"
+        allowStr = f"[gray66]{''.join(allow)}[/]"
+        panel = Panel(
+            Align.center(table,vertical="middle"),
+            title=f"[b {titleColor}][blue]GBC-S2Ws[/]{allowStr}Overlay[/] {hourglass[self.index] if not self.websock.isAllConnected else ':white_heavy_check_mark:'}",
+            border_style="cyan"
+        )
+        
+        self.index = 0 if self.index + 1 == len(hourglass) else self.index + 1
+        self.tick = 0 if self.tick + 1 == self.TICKLIM else self.tick + 1
+
+        return panel
+
+
+class SocketUI:
+    def __init__(self,socket:SocketClient) -> None:
+        self.socket = socket
+        self.preLastData = {}
+        self.tick = 0
+        self.TICKLIM = 5
+
+    def __rich__(self) -> None:
+        allow = list("="*self.TICKLIM)
+        allow[self.tick] = "[white]>[/]"
+        allowStr = f"[gray66]{''.join(allow)}[/]"
+        panel = Panel(
+            Align.center(self.createTable(),vertical="middle"),
+            title=f"[b red][red]RL[/]{allowStr}[blue]GBC-S2Ws",
+            border_style="cyan"
+        )
+        self.tick = 0 if self.tick + 1 == self.TICKLIM else self.tick + 1
+        return panel
+    
+    def createTable(self):
+        printTable = Table(header_style="b sea_green2")
+        printTable.add_column("RL",justify="center")
+        printTable.add_column("Connection Status",justify="center")
+        for (key,d) in self.socket.lastData.items():
+            printTable.add_row(f"[{'gray66' if d is None else 'cyan1'}]{key}",f"[{'gray66' if d is None else 'cyan1'}]{d}")
+        return printTable
 
 def makeLayout():
     layout = Layout()
