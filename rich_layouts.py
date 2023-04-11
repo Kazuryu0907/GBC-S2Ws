@@ -7,6 +7,7 @@ from rich.layout import Layout
 from rich.align import Align
 from websocket_server import WebsockServ
 from socket_client import SocketClient
+
 class Header:
     """
     Display Welcome Message & Version
@@ -96,3 +97,8 @@ def makeLayout():
             Layout(name="right")
         )
     return layout
+
+import asyncio
+async def printLayout(layout):
+    with Live(layout,refresh_per_second=4) as live:
+        await asyncio.Future()

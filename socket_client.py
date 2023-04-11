@@ -12,11 +12,10 @@ class SocketClient:
         self.lastData = {"PlayerName":None,"PlayerScore":None,"Scored":None,"Others":None}
 
     def assortData4UI(self,data) -> None:
-        if data in ["scored","end","init"]:
+        if data in ["end","init"]:
             self.lastData["Others"] = data
         elif data == "scored":
-            # self.lastData["scored"] = data
-            pass
+            self.lastData["Scored"] = data
         elif data[0] == "s":
             # Score
             self.lastData["PlayerScore"] = data[1:].split(":")[1]

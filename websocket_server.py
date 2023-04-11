@@ -26,7 +26,7 @@ class WebsockServ:
         """
         while 1:
             q:str = await self.queue.get()
-            logging.debug(f"< Queue:{q}")
+            # logging.debug(f"< Queue:{q}")
             # Null文字除去
             q = q.encode().replace(b"\x00",b"").decode()
             try:
@@ -89,10 +89,13 @@ class WebsockServ:
 
         try:
             await websocket.wait_closed()
+        except Exception as e:
+            logging.error(e)
         finally:
             self.connections.pop(websocket.path)
             # 切断時Table更新
             self.isUpdatebleTable = True
+            
 
     async def websocketMain(self) -> None:
         """
