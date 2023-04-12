@@ -1,7 +1,7 @@
 import asyncio
 from socket_client import SocketClient
 from websocket_server import WebsockServ
-from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,printLayout
+from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer
 import signal
 import logging
 from rich.live import Live
@@ -14,23 +14,22 @@ signal.signal(signal.SIGINT,signal.SIG_DFL)
 logging.basicConfig(level=logging.DEBUG,filename="./test.log")
 async def async_multi_sleep():
     layout = makeLayout()
-    layout["upper"].update(Header())
+    
     queue = asyncio.Queue()
     websock = WebsockServ(queue=queue)
     socket = SocketClient()
 
+    layout["upper"].update(Header())
+    layout["main"].update(Timer())
     layout["lower"]["right"].update(WebsocketUI(websock))
-    # layout["main"].visible = False
     layout["lower"]["left"].update(SocketUI(socket))
 
     # print(layout)
     task1 = asyncio.create_task(socket.main(queue))
     task11 = asyncio.create_task(websock.sendDataFromQueue())
     task2 = asyncio.create_task(websock.websocketMain())
-    task3 = asyncio.create_task(printLayout(layout))    
-
-    
-    await asyncio.Future()
+    with Live(layout,refresh_per_second=4) as live:
+        await asyncio.Future()    
     
 
 try:

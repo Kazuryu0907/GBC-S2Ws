@@ -51,10 +51,12 @@ class SocketClient:
             loop = asyncio.get_event_loop()
             recv,_ = await loop.sock_recvfrom(s,256)
             self.recv = recv
-            # logging.debug(recv.decode("utf-8"))
             msg = recv.decode("utf-8")
             queue.put_nowait(msg)
-            self.assortData4UI(msg)
+            try:
+                self.assortData4UI(msg)
+            except:
+                pass
 
         socket.close()
 

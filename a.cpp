@@ -5,6 +5,8 @@
 #include <time.h>
 #include <unistd.h>
 #include <vector>
+#include <random>
+#include <string>
 
 int main(){
     int port = 12345;
@@ -31,12 +33,15 @@ int main(){
 
 
     //buff
-    char send_buf[] = "pPAn:10";
+    std::string buf = "sPAn:0";
     std::cout << "waiting" << std::endl;
+    std::mt19937 mt{std::random_device{}()};
+    std::uniform_int_distribution<int> dist(1,3);
     while(1){
-        sendto(src_socket,send_buf,sizeof(send_buf),0,(struct sockaddr*)&src_addr,sizeof(src_addr));
+        sendto(src_socket,buf.c_str(),sizeof(char)*buf.length(),0,(struct sockaddr*)&src_addr,sizeof(src_addr));
         sleep(1);
-        std::cout << (double)clock() << ":" << send_buf << std::endl;
+        std::cout << (double)clock() << ":" << buf.c_str() << std::endl;
+        buf = "pPAn:" + std::to_string(dist(mt));
     }
     closesocket(src_socket);
     WSACleanup();
