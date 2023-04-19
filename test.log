@@ -18,3 +18,331 @@ DEBUG:root:'/playerName'
 DEBUG:root:'/playerName'
 DEBUG:root:'/playerName'
 DEBUG:root:'/playerName'
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:[34msocket start[0m
+INFO:root:[34mWebsocket start[0m
+INFO:websockets.server:server listening on [::1]:8001
+INFO:websockets.server:server listening on 127.0.0.1:8001
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:websockets.server:= connection is CONNECTING
+DEBUG:websockets.server:< GET /icon HTTP/1.1
+DEBUG:websockets.server:< Host: localhost:8001
+DEBUG:websockets.server:< Connection: Upgrade
+DEBUG:websockets.server:< Pragma: no-cache
+DEBUG:websockets.server:< Cache-Control: no-cache
+DEBUG:websockets.server:< User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+DEBUG:websockets.server:< Upgrade: websocket
+DEBUG:websockets.server:< Origin: null
+DEBUG:websockets.server:< Sec-WebSocket-Version: 13
+DEBUG:websockets.server:< Accept-Encoding: gzip, deflate, br
+DEBUG:websockets.server:< Accept-Language: ja,en-US;q=0.9,en;q=0.8
+DEBUG:websockets.server:< Sec-WebSocket-Key: 0qbnbgVfTzNcPMP5/Ci7Yw==
+DEBUG:websockets.server:< Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits
+DEBUG:websockets.server:> HTTP/1.1 101 Switching Protocols
+DEBUG:websockets.server:> Upgrade: websocket
+DEBUG:websockets.server:> Connection: Upgrade
+DEBUG:websockets.server:> Sec-WebSocket-Accept: L32rJfmcfL9EQGdb5RLzvxemK3c=
+DEBUG:websockets.server:> Sec-WebSocket-Extensions: permessage-deflate; server_max_window_bits=12; client_max_window_bits=12
+DEBUG:websockets.server:> Date: Wed, 19 Apr 2023 14:45:33 GMT
+DEBUG:websockets.server:> Server: Python/3.11 websockets/11.0
+INFO:websockets.server:connection open
+DEBUG:websockets.server:= connection is OPEN
+INFO:root:[34mconnected:/icon[0m
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:websockets.server:= connection is CONNECTING
+DEBUG:websockets.server:< GET /playerName HTTP/1.1
+DEBUG:websockets.server:< Host: localhost:8001
+DEBUG:websockets.server:< Connection: Upgrade
+DEBUG:websockets.server:< Pragma: no-cache
+DEBUG:websockets.server:< Cache-Control: no-cache
+DEBUG:websockets.server:< User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36
+DEBUG:websockets.server:< Upgrade: websocket
+DEBUG:websockets.server:< Origin: null
+DEBUG:websockets.server:< Sec-WebSocket-Version: 13
+DEBUG:websockets.server:< Accept-Encoding: gzip, deflate, br
+DEBUG:websockets.server:< Accept-Language: ja,en-US;q=0.9,en;q=0.8
+DEBUG:websockets.server:< Sec-WebSocket-Key: pxDjs/sBsFE6rxJbGUYgdw==
+DEBUG:websockets.server:< Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits
+DEBUG:websockets.server:> HTTP/1.1 101 Switching Protocols
+DEBUG:websockets.server:> Upgrade: websocket
+DEBUG:websockets.server:> Connection: Upgrade
+DEBUG:websockets.server:> Sec-WebSocket-Accept: 1wESoq2G2Nbvy8lEColdw9rHafs=
+DEBUG:websockets.server:> Sec-WebSocket-Extensions: permessage-deflate; server_max_window_bits=12; client_max_window_bits=12
+DEBUG:websockets.server:> Date: Wed, 19 Apr 2023 14:45:38 GMT
+DEBUG:websockets.server:> Server: Python/3.11 websockets/11.0
+INFO:websockets.server:connection open
+DEBUG:websockets.server:= connection is OPEN
+INFO:root:[34mconnected:/playerName[0m
+DEBUG:websockets.server:> TEXT 'pPA4:4' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:4' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA2:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\2.png:3' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA2:1' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\2.png:1' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA3:1' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\3.png:1' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA5:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\5.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:2' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:2' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA3:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\3.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA1:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\1.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA2:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\2.png:3' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:1' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:1' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA3:2' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\3.png:2' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA2:2' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\2.png:2' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA5:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\5.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:3' [27 bytes]
+DEBUG:websockets.server:% sending keepalive ping
+DEBUG:websockets.server:> PING 7f 7b fb 37 [binary, 4 bytes]
+DEBUG:websockets.server:< PONG 7f 7b fb 37 [binary, 4 bytes]
+DEBUG:websockets.server:% received keepalive pong
+DEBUG:websockets.server:> TEXT 'pPA5:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\5.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA2:4' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\2.png:4' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:4' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:4' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:1' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:1' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA1:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\1.png:3' [27 bytes]
+DEBUG:websockets.server:% sending keepalive ping
+DEBUG:websockets.server:> PING 5f f8 69 cd [binary, 4 bytes]
+DEBUG:websockets.server:< PONG 5f f8 69 cd [binary, 4 bytes]
+DEBUG:websockets.server:% received keepalive pong
+DEBUG:websockets.server:> TEXT 'pPA4:4' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:4' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA5:4' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\5.png:4' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA1:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\1.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA1:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\1.png:3' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA3:2' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\3.png:2' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA1:2' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\1.png:2' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:3' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:3' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:4' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:4' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA3:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\3.png:3' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:2' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:2' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA4:5' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\4.png:5' [27 bytes]
+DEBUG:websockets.server:> TEXT 'pPA5:3' [6 bytes]
+DEBUG:websockets.server:> TEXT 'p:./graphics/images\\5.png:3' [27 bytes]
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:[34msocket start[0m
+INFO:root:[34mWebsocket start[0m
+INFO:websockets.server:server listening on [::1]:8001
+INFO:websockets.server:server listening on 127.0.0.1:8001
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:[34msocket start[0m
+INFO:root:[34mWebsocket start[0m
+INFO:websockets.server:server listening on 127.0.0.1:8001
+INFO:websockets.server:server listening on [::1]:8001
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:[34msocket start[0m
+INFO:root:[34mWebsocket start[0m
+INFO:websockets.server:server listening on 127.0.0.1:8001
+INFO:websockets.server:server listening on [::1]:8001
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:[34msocket start[0m
+INFO:root:[34mWebsocket start[0m
+INFO:websockets.server:server listening on 127.0.0.1:8001
+INFO:websockets.server:server listening on [::1]:8001
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:[34msocket start[0m
+INFO:root:[34mWebsocket start[0m
+INFO:websockets.server:server listening on 127.0.0.1:8001
+INFO:websockets.server:server listening on [::1]:8001
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:asyncio:Using proactor: IocpProactor
+INFO:root:[34msocket start[0m
+INFO:root:[34mWebsocket start[0m
+INFO:websockets.server:server listening on [::1]:8001
+INFO:websockets.server:server listening on 127.0.0.1:8001
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'
+DEBUG:root:'/playerName'

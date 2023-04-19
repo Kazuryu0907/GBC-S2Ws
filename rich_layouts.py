@@ -158,8 +158,9 @@ class IconsUI:
         printTable = Table(show_header=False,show_edge=False)
         printTable.add_column(f"[dark_orange3]Files:[chartreuse2]{self.fileLen}",style="chartreuse2")
         calcMod = lambda x:x % self.fileLen
+        zeroColor = lambda x: "dark_orange3" if x == 1 else "white" 
         for i in range(self.WIDTH):
-            printTable.add_row(f"[white]{calcMod(i+self.index)+1}:[/] {self.fileNames[calcMod(i+self.index)]}")
+            printTable.add_row(f"[white][{zeroColor(calcMod(i+self.index)+1)}]{calcMod(i+self.index)+1}[/]:[/] {self.fileNames[calcMod(i+self.index)]}")
         
         self.cushion += 1
         if self.cushion == self.MaxCushion:
