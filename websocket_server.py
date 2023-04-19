@@ -3,12 +3,30 @@ import websockets
 import logging
 from pycolor import pycolor,setTermColor
 from rich.table import Table
+import glob
+import os
+from rapidfuzz.process import extract
+
+
+class SimilaryFile:
+    def __init__(self,path:str) -> None:
+        files = glob.glob(path)
+        self.fileNames = list(map(lambda f:os.path.basename(f).split(".")[0],files))
+        self.nameFileTable = {f"{n}":f for (f,n) in list(zip(files,self.fileNames))}
+        self.fileNamesEx = list(map(lambda f:os.path.basename(f),files))
+
+    def getSimilaryPath(self,query:str):
+        similary = extract(query,self.fileNames,limit=10)
+        mostSimilaryName = list(similary[0])[0]
+        self.sims = similary
+        return self.nameFileTable[mostSimilaryName]
+
 
 class WebsockServ:
     """
     Websocket Server 4 GBC-S2Ws
     """
-    def __init__(self,queue:asyncio.Queue) -> None:
+    def __init__(self,queue:asyncio.Queue,simPath:str) -> None:
         """
         Parameters
         ----------
@@ -19,6 +37,9 @@ class WebsockServ:
         self.isConnected = False
         self.connections = {}
         self.isUpdatebleTable = True
+        self.similary = SimilaryFile(simPath)
+        self.lastRawIcon = "None"
+        self.lastSimIcons = []
 
     async def sendDataFromQueue(self) -> None:
         """
@@ -35,8 +56,11 @@ class WebsockServ:
                 elif q[0] == "s":
                     await self.connections["/score"].send(q)
                 elif q[0] == "p":
+                    self.lastRawIcon,index = q[1:].split(":")
+                    simedPath = self.similary.getSimilaryPath(self.lastRawIcon)
+                    self.lastSimIcons = self.similary.sims
                     await self.connections["/playerName"].send(q)
-                    await self.connections["/icon"].send(q)
+                    await self.connections["/icon"].send(f"p:{simedPath}:{index}")
             except Exception as e:
                 # logging.error(setTermColor("ブラウザ接続待機中...",pycolor.GREEN))
                 logging.debug(e)
@@ -113,3 +137,6 @@ class WebsockServ:
         task = asyncio.create_task(self.websocketMain())
         task2 = asyncio.create_task(self.sendDataFromQueue())
 
+if __name__ == "__main__":
+    a = SimilaryFile("./graphics/images/*")
+    print(a.getSimilaryPath("aaa"))

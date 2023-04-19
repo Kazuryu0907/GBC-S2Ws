@@ -33,15 +33,15 @@ int main(){
 
 
     //buff
-    std::string buf = "sPAn:0";
+    std::string buf = "pPAn:0";
     std::cout << "waiting" << std::endl;
     std::mt19937 mt{std::random_device{}()};
-    std::uniform_int_distribution<int> dist(1,3);
+    std::uniform_int_distribution<int> dist(1,5);
     while(1){
         sendto(src_socket,buf.c_str(),sizeof(char)*buf.length(),0,(struct sockaddr*)&src_addr,sizeof(src_addr));
         sleep(1);
         std::cout << (double)clock() << ":" << buf.c_str() << std::endl;
-        buf = "pPAn:" + std::to_string(dist(mt));
+        buf = "pPA" + std::to_string(dist(mt)) + ":" + std::to_string(dist(mt));
     }
     closesocket(src_socket);
     WSACleanup();
