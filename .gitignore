@@ -12,3 +12,4 @@ test.log
 *.exe
 main.spec
 fullscreen.py
+share/
