@@ -7,3 +7,7 @@ a.exe
 build/
 dist/
 test.log
+a.cpp
+*.txt
+*.exe
+main.spec
