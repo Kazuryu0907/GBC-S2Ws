@@ -15,11 +15,11 @@
 - Bakkesmod Plugin "Pras"
 
 # Installation
-- [Prasダウンロードリンク]()
+- [Prasダウンロードリンク](https://github.com/Kazuryu0907/PraS/releases/tag/Pras4GBC-S2Wsv1.1)
 - bakkesmod Pluginの導入に関しては[ここ](https://note.com/forusian/n/n0d15fde904d3)を参照ください．
 
 # Usage
-1\. `graphics/images`に参加者の立ち絵ファイルを設置します．このとき，ファイル名はRLのユーザーネームと**完全一致する必要はありません**が，類似度推定が間違えない程度に近い名前に設定します．任意の拡張子に対応しています．  
+1\. `graphics/images`に参加者の立ち絵ファイルを設置します．このとき，ファイル名はRLのユーザー名と**完全一致する必要はありません**が，類似度推定が間違えない程度に近い名前に設定します．任意の拡張子に対応しています．  
 
 2\. GBC-S2Wsを起動します．   
 
