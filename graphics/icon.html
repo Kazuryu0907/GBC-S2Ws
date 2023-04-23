@@ -6,7 +6,8 @@
 </head>
 <body>
 	<img src="./images/cry.png" id="img_icon" alt="">
-	<script type="text/javascript">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
         let webSocket;
 
         webSocket = new WebSocket("ws://localhost:8001/icon");
@@ -27,9 +28,11 @@
                 PlayerTable[PlayerName] = index;
             }
             else if(cmd == "p"){//Player Focus
-                const [PlayerName,index] = splitedMsg;
+                splitedMsg = msg.slice(1).split("!");
+                const [path,index] = splitedMsg;
+                console.log(index,path);
                 //DEBUG
-                iconEle.src = index.replace("/graphics","");
+                iconEle.src = path.replace("/graphics","");
                 // iconEle.src = "./images" + PlayerName + ".png";
             }
             
