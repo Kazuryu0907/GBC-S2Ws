@@ -13,15 +13,17 @@
 
 # Requirement
 - Bakkesmod Plugin "Pras"
-
+- Windows Terminal
+  
 # Installation
 - [Prasダウンロードリンク](https://github.com/Kazuryu0907/PraS/releases/tag/Pras4GBC-S2Wsv1.1)
 - bakkesmod Pluginの導入に関しては[ここ](https://note.com/forusian/n/n0d15fde904d3)を参照ください．
+- Windows Terminalの導入に関しては[ここ](https://www.curict.com/item/26/2629f94.html)を参照ください．
 
 # Usage
 1\. `graphics/images`に参加者の立ち絵ファイルを設置します．このとき，ファイル名はRLのユーザー名と**完全一致する必要はありません**が，類似度推定が間違えない程度に近い名前に設定します．任意の拡張子に対応しています．  
 
-2\. GBC-S2Wsを起動します．   
+2\. `GBC-S2Ws`フォルダで右クリックし，**ターミナルで開く**をクリックします．そして`./GBC-S2Ws.ps1`と打ち込むと本ソフトウェアが起動します．
 
 3\.  RLにてPrasをロードします．(F6押下から`Plugin Load Pras`)  
 
