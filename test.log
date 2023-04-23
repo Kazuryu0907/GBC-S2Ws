@@ -17,7 +17,6 @@ DEBUG:root:'/playerName'
 DEBUG:root:'/playerName'
 DEBUG:root:'/playerName'
 DEBUG:root:'/playerName'
-DEBUG:root:'/playerName'
 DEBUG:asyncio:Using proactor: IocpProactor
 INFO:root:[34msocket start[0m
 INFO:root:[34mWebsocket start[0m
