@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Pras score</title>
+</head>
+<body>
+	<div id="score" style="color: white;font-size:80px"></div>
+	<script type="text/javascript">
+        let webSocket;
+
+        webSocket = new WebSocket("ws://localhost:8001/score");
+        let scoreEle = document.getElementById("score");
+        let PlayerTable = {};
+        webSocket.onmessage = function(message){
+            
+            // let msg = message.data.slice(0,-1);//null文字除去
+            let msg = message.data;
+            let cmd = msg[0];
+            let splitedMsg = msg.slice(1).split(":");
+            if(cmd == "t"){//Player Table
+                const [PlayerName,index] = splitedMsg;
+                PlayerTable[PlayerName] = index;
+            }
+            // else if(cmd == "p"){//Player Focus
+            //     const [PlayerName,index] = splitedMsg;
+            // }
+            else if(cmd == "s"){// Focusing Score
+                const [index,score] = splitedMsg;
+                scoreEle.textContent = score;
+            }
+            
+        }
+	</script>
+</body>
+</html>

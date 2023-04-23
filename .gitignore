@@ -4,3 +4,11 @@ pyenv/
 libdatachannel/
 _index.html
 a.exe
+build/
+dist/
+test.log
+*.cpp
+*.txt
+*.exe
+main.spec
+fullscreen.py

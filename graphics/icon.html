@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Pras icon</title>
+</head>
+<body>
+	<img src="./images/cry.png" id="img_icon" alt="">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        let webSocket;
+
+        webSocket = new WebSocket("ws://localhost:8001/icon");
+        let iconEle = document.getElementById("img_icon");
+        let PlayerTable = {};
+        webSocket.onmessage = function(message){
+            
+            // let msg = message.data.slice(0,-1);//null文字除去
+            console.log(message.data)
+            let msg = message.data;
+            let cmd = msg[0];
+            let splitedMsg = msg.slice(1).split(":");
+            if(msg == "init" || msg == "scored" || msg == "end"){
+                return 0;
+            }
+            else if(cmd == "t"){//Player Table
+                const [PlayerName,index] = splitedMsg;
+                PlayerTable[PlayerName] = index;
+            }
+            else if(cmd == "p"){//Player Focus
+                splitedMsg = msg.slice(1).split("!");
+                const [path,index] = splitedMsg;
+                console.log(index,path);
+                //DEBUG
+                iconEle.src = path.replace("/graphics","");
+                // iconEle.src = "./images" + PlayerName + ".png";
+            }
+            
+        };
+        </script>
+</body>
+</html>
