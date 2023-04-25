@@ -1,11 +1,9 @@
-from rich import print,box
-from rich.console import Console,Group
 from rich.panel import Panel
-from rich.live import Live
 from rich.table import Table
 from rich.layout import Layout
 from rich.align import Align
 from rich.tree import Tree
+
 from websocket_server import WebsockServ
 from socket_client import SocketClient
 from datetime import datetime 
@@ -18,7 +16,7 @@ class Header:
         self.index = 0
     def __rich__(self) -> Panel:
         maxIndex = 10
-        earths = [":earth_africa:",":earth_americas:",":earth_asia:"]
+
         grid = Table.grid(expand=True)
         # 中心にそろえる
         grid.add_column(justify="left")
@@ -38,6 +36,7 @@ class Header:
         return panel
     
 class Timer:
+    """Display Timer UI"""
     def __rich__(self):
         panel = Panel(
             Align.center(f'[chartreuse2]{datetime.now().strftime(r"%Y/%m/%d %H:%M:%S").replace(":", "[blink]:[/]")}'),
@@ -55,7 +54,6 @@ class WebsocketUI:
 
     def __rich__(self) -> Panel:
         table = self.createUITable()
-        hourglass = [":hourglass:",":hourglass_flowing_sand:",":hourglass_not_done:",":hourglass_done:"]
         clocks = [":twelve_o’clock:",":three_o’clock:",":six_o’clock:",":nine_o’clock:"]
         titleColor = 'red' if not self.websock.isAllConnected else 'green1'
         allow = list("="*self.TICKLIM)
@@ -99,6 +97,7 @@ class WebsocketUI:
 
 
 class SocketUI:
+    """Display SocketUI"""
     def __init__(self,socket:SocketClient) -> None:
         self.socket = socket
         self.preLastData = socket.lastData.copy()
@@ -118,6 +117,15 @@ class SocketUI:
         return panel
     
     def createTable(self):
+        """
+        Create Socket UI Table.
+        if received message, blink Table value 
+
+        Returns
+        -------
+        printTable : rich.table.Table
+            Created Socket UI
+        """
         printTable = Table(show_header=True,header_style="b chartreuse2")
         printTable.add_column("RL",justify="center")
         printTable.add_column("Connection Status",justify="center")
@@ -131,6 +139,7 @@ class SocketUI:
         return printTable
 
 class SimedPathUI:
+    """Display Similary Path"""
     def __init__(self,websock:WebsockServ) -> None:
         self.websock = websock
         
@@ -145,6 +154,7 @@ class SimedPathUI:
         return Panel(Align.center(printTree),title="[dark_orange3]Icon Similary",border_style="cyan3")
 
 class IconsUI:
+    """Display Icon Files"""
     def __init__(self,websock:WebsockServ) -> None:
         self.sim = websock.similary
         self.fileNames = self.sim.fileNamesEx.copy()
@@ -170,6 +180,7 @@ class IconsUI:
 
 
 def makeLayout():
+    """Create Layout"""
     layout = Layout()
     layout.split_column(
         Layout(name="upper",size=3),
@@ -186,8 +197,3 @@ def makeLayout():
             Layout(name="right")
     )
     return layout
-
-import asyncio
-async def printLayout(layout):
-    with Live(layout,refresh_per_second=4) as live:
-        await asyncio.Future()

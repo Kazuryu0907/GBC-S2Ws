@@ -1,27 +1,12 @@
 import asyncio
-from socket_client import SocketClient
-from websocket_server import WebsockServ
-from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
 import signal
 import logging
 from rich.live import Live
-from rich.panel import Panel
 from rich.console import Console
-import glob
-import os
-from rapidfuzz.process import extract
-
-class SimilaryFile:
-    def __init__(self,path:str) -> None:
-        files = glob.glob(path)
-        fileNames = list(map(lambda f:os.path.basename(f).split(".")[0],files))
-        self.nameFileTable = {f"{n}":f for (f,n) in list(zip(files,fileNames))}
-# "./graphics/images/*"
-    def getSimilaryPath(self,query:str):
-        similary = extract(query,self.fileNames)
-        mostSimilaryName = list(similary[0])[0]
-        return self.nameFileTable[mostSimilaryName]
-
+from socket_client import SocketClient
+from websocket_server import WebsockServ
+from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
+from similary_file import SimilaryFile
 
 console = Console()
 #CTRL+Cで強制終了
@@ -32,7 +17,9 @@ async def async_multi_sleep():
     layout = makeLayout()
     
     queue = asyncio.Queue()
-    websock = WebsockServ(queue,"./graphics/images/*")
+    simPath = "./graphics/images/*"
+    sim = SimilaryFile(simPath)
+    websock = WebsockServ(queue,sim)
     socket = SocketClient()
 
     layout["upper"].update(Header())
@@ -42,7 +29,6 @@ async def async_multi_sleep():
     layout["bot"]["left"].update(SimedPathUI(websock))
     layout["bot"]["right"].update(IconsUI(websock))
 
-    # print(layout)
     task1 = asyncio.create_task(socket.main(queue))
     task11 = asyncio.create_task(websock.sendDataFromQueue())
     task2 = asyncio.create_task(websock.websocketMain())
