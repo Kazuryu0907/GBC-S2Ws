@@ -1,48 +1,45 @@
 import asyncio
-from socket_client import SocketClient
-from websocket_server import WebsockServ
-from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
 import signal
 import logging
 from rich.live import Live
-from rich.panel import Panel
 from rich.console import Console
-import glob
-import os
-from rapidfuzz.process import extract
+from socket_client import SocketClient
+from websocket_server import WebsockServ
+from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
+from similary_file import SimilaryFile
+from update import Updater
+import sys
 
-class SimilaryFile:
-    def __init__(self,path:str) -> None:
-        files = glob.glob(path)
-        fileNames = list(map(lambda f:os.path.basename(f).split(".")[0],files))
-        self.nameFileTable = {f"{n}":f for (f,n) in list(zip(files,fileNames))}
-# "./graphics/images/*"
-    def getSimilaryPath(self,query:str):
-        similary = extract(query,self.fileNames)
-        mostSimilaryName = list(similary[0])[0]
-        return self.nameFileTable[mostSimilaryName]
+args = sys.argv
+initText = """./GBC-S2Ws_update.exe
+./GBC-S2Ws.exe
+Read-Host 'Press any key to continue'"""
 
 
 console = Console()
+updater = Updater(console)
 #CTRL+Cで強制終了
 signal.signal(signal.SIGINT,signal.SIG_DFL)
 logging.basicConfig(level=logging.DEBUG,filename="./test.log")
 async def async_multi_sleep():
 
+    version = updater.getLatestVersion()
+
     layout = makeLayout()
     
     queue = asyncio.Queue()
-    websock = WebsockServ(queue,"./graphics/images/*")
+    simPath = "./graphics/images/*"
+    sim = SimilaryFile(simPath)
+    websock = WebsockServ(queue,sim)
     socket = SocketClient()
 
-    layout["upper"].update(Header())
+    layout["upper"].update(Header(version))
     layout["main"].update(Timer())
     layout["lower"]["right"].update(WebsocketUI(websock))
     layout["lower"]["left"].update(SocketUI(socket))
     layout["bot"]["left"].update(SimedPathUI(websock))
     layout["bot"]["right"].update(IconsUI(websock))
 
-    # print(layout)
     task1 = asyncio.create_task(socket.main(queue))
     task11 = asyncio.create_task(websock.sendDataFromQueue())
     task2 = asyncio.create_task(websock.websocketMain())
@@ -50,7 +47,11 @@ async def async_multi_sleep():
         await asyncio.Future()    
     
 
+
 try:
-    asyncio.run(async_multi_sleep())
+    if len(args) >= 2:
+        print(initText)
+    else:
+        asyncio.run(async_multi_sleep())
 except Exception as e:
     console.print_exception(extra_lines=5,show_locals=True)

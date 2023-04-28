@@ -3,41 +3,27 @@ import websockets
 import logging
 from pycolor import pycolor,setTermColor
 from rich.table import Table
-import glob
-import os
-from rapidfuzz.process import extract
-
-
-class SimilaryFile:
-    def __init__(self,path:str) -> None:
-        files = glob.glob(path)
-        self.fileNames = list(map(lambda f:os.path.basename(f).split(".")[0],files))
-        self.nameFileTable = {f"{n}":f for (f,n) in list(zip(files,self.fileNames))}
-        self.fileNamesEx = list(map(lambda f:os.path.basename(f),files))
-
-    def getSimilaryPath(self,query:str):
-        similary = extract(query,self.fileNames,limit=10)
-        mostSimilaryName = list(similary[0])[0]
-        self.sims = similary
-        return self.nameFileTable[mostSimilaryName]
+from similary_file import SimilaryFile
 
 
 class WebsockServ:
     """
     Websocket Server 4 GBC-S2Ws
     """
-    def __init__(self,queue:asyncio.Queue,simPath:str) -> None:
+    def __init__(self,queue:asyncio.Queue,sim:SimilaryFile) -> None:
         """
         Parameters
         ----------
         queue : asyncio.Queue
             Queue from Socket.
+        sim : SimilaryFile
+            SimilaryFile instance.
         """
         self.queue = queue
         self.isConnected = False
         self.connections = {}
         self.isUpdatebleTable = True
-        self.similary = SimilaryFile(simPath)
+        self.similary = sim
         self.lastRawIcon = "None"
         self.lastSimIcons = []
 
@@ -59,9 +45,13 @@ class WebsockServ:
                     self.lastRawIcon,index = q[1:].split(":")
                     simedPath = self.similary.getSimilaryPath(self.lastRawIcon)
                     self.lastSimIcons = self.similary.sims
-                    basePath = os.getcwd()
                     await self.connections["/playerName"].send(q)
                     await self.connections["/icon"].send(f"p{simedPath}!{index}")
+                elif q == "end":
+                    await self.connections["/score"].send("s_: ")
+                    await self.connections["/icon"].send("p_!_")
+                    await self.connections["/playerName"].send("p !_")
+                    
             except Exception as e:
                 # logging.error(setTermColor("ブラウザ接続待機中...",pycolor.GREEN))
                 logging.debug(e)

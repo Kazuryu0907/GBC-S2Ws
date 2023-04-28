@@ -23,14 +23,6 @@ class SocketClient:
             # PlayerName
             self.lastData["PlayerName"] = data[1:].split(":")[0]
 
-
-    def createSocketTable(self):
-        printTable = Table(header_style="b sea_green2")
-        printTable.add_column("RL",justify="center")
-        printTable.add_column("Connection Status",justify="center")
-        printTable.add_row("A",":white_check_mark:")
-        return printTable
-
     async def main(self,queue):
         """
         Create Socket Client & On recved message,Put data to Queue.
