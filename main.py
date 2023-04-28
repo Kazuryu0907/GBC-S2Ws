@@ -8,6 +8,13 @@ from websocket_server import WebsockServ
 from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
 from similary_file import SimilaryFile
 from update import Updater
+import sys
+
+args = sys.argv
+initText = """./GBC-S2Ws_update.exe
+./GBC-S2Ws.exe
+Read-Host 'Press any key to continue'"""
+
 
 console = Console()
 updater = Updater(console)
@@ -40,7 +47,11 @@ async def async_multi_sleep():
         await asyncio.Future()    
     
 
+
 try:
-    asyncio.run(async_multi_sleep())
+    if len(args) >= 2:
+        print(initText)
+    else:
+        asyncio.run(async_multi_sleep())
 except Exception as e:
     console.print_exception(extra_lines=5,show_locals=True)

@@ -45,9 +45,13 @@ class WebsockServ:
                     self.lastRawIcon,index = q[1:].split(":")
                     simedPath = self.similary.getSimilaryPath(self.lastRawIcon)
                     self.lastSimIcons = self.similary.sims
-                    basePath = os.getcwd()
                     await self.connections["/playerName"].send(q)
                     await self.connections["/icon"].send(f"p{simedPath}!{index}")
+                elif q == "end":
+                    await self.connections["/score"].send("s_: ")
+                    await self.connections["/icon"].send("p_!_")
+                    await self.connections["/playerName"].send("p !_")
+                    
             except Exception as e:
                 # logging.error(setTermColor("ブラウザ接続待機中...",pycolor.GREEN))
                 logging.debug(e)
