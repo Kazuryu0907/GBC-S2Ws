@@ -149,7 +149,7 @@ class SimedPathUI:
         for i in range(min(10-2,len(simIcons))):
             fname,per,index = list(simIcons[i])
             color = "dark_orange3" if i == 0 else "white"
-            printTree.add(f"[chartreuse2]{fname}:[{color}]{per}%")
+            printTree.add(f"[chartreuse2]{fname}:[{color}]{round(per,2)}%")
 
         return Panel(Align.center(printTree),title="[dark_orange3]Icon Similary",border_style="cyan3")
 
