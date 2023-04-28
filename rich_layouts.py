@@ -12,8 +12,10 @@ class Header:
     """
     Display Welcome Message & Version
     """
-    def __init__(self) -> None:
+    def __init__(self,version) -> None:
         self.index = 0
+        self.version = version
+
     def __rich__(self) -> Panel:
         maxIndex = 10
 
@@ -27,9 +29,9 @@ class Header:
         baseText = "[chartreuse2]Welcome Back!, GBC-S2Ws!"
         text = f'[{dashColor}]{"-"*self.index}[/]' + baseText + f'[{dashColor}]{"-"*self.index}[/]'
         grid.add_row(
-            "[black]ver 0.0.1",
+            f"[black]{self.version}",
             text,
-            "[b dark_green]ver 0.0.1"
+            f"[b dark_green]{self.version}"
         )
         panel = Panel(grid,border_style="cyan3")
         self.index = 0 if self.index + 1 == maxIndex else self.index + 1

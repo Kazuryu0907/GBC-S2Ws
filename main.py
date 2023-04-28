@@ -7,12 +7,16 @@ from socket_client import SocketClient
 from websocket_server import WebsockServ
 from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
 from similary_file import SimilaryFile
+from update import Updater
 
 console = Console()
+updater = Updater(console)
 #CTRL+Cで強制終了
 signal.signal(signal.SIGINT,signal.SIG_DFL)
 logging.basicConfig(level=logging.DEBUG,filename="./test.log")
 async def async_multi_sleep():
+
+    version = updater.getLatestVersion()
 
     layout = makeLayout()
     
@@ -22,7 +26,7 @@ async def async_multi_sleep():
     websock = WebsockServ(queue,sim)
     socket = SocketClient()
 
-    layout["upper"].update(Header())
+    layout["upper"].update(Header(version))
     layout["main"].update(Timer())
     layout["lower"]["right"].update(WebsocketUI(websock))
     layout["lower"]["left"].update(SocketUI(socket))
