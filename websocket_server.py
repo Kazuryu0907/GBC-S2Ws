@@ -31,6 +31,11 @@ class WebsockServ:
         """
         Get Queue from Socket and send assorted data to Websocket. 
         """
+        async def stream(msg:str):
+            await self.connections["/score"].send(msg)
+            await self.connections["/icon"].send(msg)
+            await self.connections["/playerName"].send(msg)
+
         while 1:
             q:str = await self.queue.get()
             # logging.debug(f"< Queue:{q}")
@@ -47,11 +52,13 @@ class WebsockServ:
                     self.lastSimIcons = self.similary.sims
                     await self.connections["/playerName"].send(q)
                     await self.connections["/icon"].send(f"p{simedPath}!{index}")
+                elif q == "f0":
+                    await stream("hidden")
+                elif q == "f1":
+                    await stream("visible")
                 elif q == "end":
-                    await self.connections["/score"].send("s_: ")
-                    await self.connections["/icon"].send("p_!_")
-                    await self.connections["/playerName"].send("p !_")
-                    
+                    await stream("reset")
+
             except Exception as e:
                 # logging.error(setTermColor("ブラウザ接続待機中...",pycolor.GREEN))
                 logging.debug(e)

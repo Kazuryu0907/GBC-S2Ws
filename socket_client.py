@@ -12,7 +12,7 @@ class SocketClient:
         self.lastData = {"PlayerName":None,"PlayerScore":None,"Scored":None,"Others":None}
 
     def assortData4UI(self,data) -> None:
-        if data in ["end","init"]:
+        if data in ["end","init","f1","f0"]:
             self.lastData["Others"] = data
         elif data == "scored":
             self.lastData["Scored"] = data
@@ -44,6 +44,7 @@ class SocketClient:
             recv,_ = await loop.sock_recvfrom(s,256)
             self.recv = recv
             msg = recv.decode("utf-8")
+            logging.debug(msg)
             queue.put_nowait(msg)
             try:
                 self.assortData4UI(msg)

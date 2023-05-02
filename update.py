@@ -20,6 +20,9 @@ class Updater:
         self.latestVersion = self.latestRele.tag_name
         self.currentVersion = self.getCurrentVersion()
 
+    def getIntVersion(self,version:str):
+        return int(version[1:].replace(".",""))
+    
     def getLatestVersion(self):
         return self.latestVersion
     

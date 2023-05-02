@@ -18,14 +18,17 @@
             let msg = message.data;
             let cmd = msg[0];
             let splitedMsg = msg.slice(1).split(":");
-            if(cmd == "t"){//Player Table
-                const [PlayerName,index] = splitedMsg;
-                PlayerTable[PlayerName] = index;
+            if(msg == "hidden"){//reset
+                scoreEle.style.visibility = "hidden";
             }
-            // else if(cmd == "p"){//Player Focus
-            //     const [PlayerName,index] = splitedMsg;
-            // }
+            if(msg == "visible"){
+                scoreEle.style.visibility = "visible";
+            }
+            else if(msg == "reset"){
+                scoreEle.textContent = "";
+            }
             else if(cmd == "s"){// Focusing Score
+                scoreEle.style.visibility = "visible";
                 const [index,score] = splitedMsg;
                 scoreEle.textContent = score;
             }

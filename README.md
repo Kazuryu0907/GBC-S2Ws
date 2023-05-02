@@ -16,7 +16,7 @@
 - Windows Terminal
   
 # Installation
-- [Prasダウンロードリンク](https://github.com/Kazuryu0907/PraS/releases/tag/Pras4GBC-S2Wsv1.1)
+- [Prasダウンロードリンク](https://github.com/Kazuryu0907/PraS/releases/tag/Pras4GBC-S2Wsv1.2)
 - bakkesmod Pluginの導入に関しては[ここ](https://note.com/forusian/n/n0d15fde904d3)を参照ください．
 - Windows Terminalの導入に関しては[ここ](https://www.curict.com/item/26/2629f94.html)を参照ください．
 
@@ -27,7 +27,7 @@
 (**初回時のみ**`.\GBC-S2Ws.exe init > GBC-S2Ws.ps1`と打ち込み，起動ファイルを作成します．)  
 そして，`./GBC-S2Ws.ps1`と打ち込むと本ソフトウェアが起動します．
 
-3\.  RL内のbakkesmodにてPrasをロードします．(F6押下から`Plugin Load Pras`)  
+3\.  RL内のbakkesmodにてPrasをロードします．(F6押下から`plugin load pras`)  
 
 4\. CUIにて，**RL=>GBC-S2Ws**欄の**Others**が`init`に変化すれば接続良好です．(UDP通信のため，コネクションを確立する必要はありません)  
 
@@ -49,5 +49,8 @@
 * 作成者:[kazuryu](https://twitter.com/kazuryu_RL)
 * 所属：なし
 
+# Remarks
+- 2023/5/2 PraSのURLを更新
+  
 # License
 Copyright (c) 2023 Kazuryu

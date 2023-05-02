@@ -7,23 +7,27 @@ from socket_client import SocketClient
 from websocket_server import WebsockServ
 from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
 from similary_file import SimilaryFile
-from update import Updater
+import os
 import sys
+import configparser
 
 args = sys.argv
 initText = """./GBC-S2Ws_update.exe
 ./GBC-S2Ws.exe
 Read-Host 'Press any key to continue'"""
 
+def getCurrentVersion() -> str:
+    configIni = configparser.ConfigParser()
+    configIni.read("./config.ini",encoding="utf-8")
+    return configIni["DEFAULT"]["Version"]
 
 console = Console()
-updater = Updater(console)
 #CTRL+Cで強制終了
 signal.signal(signal.SIGINT,signal.SIG_DFL)
+os.remove("./test.log")
 logging.basicConfig(level=logging.DEBUG,filename="./test.log")
 async def async_multi_sleep():
-
-    version = updater.getLatestVersion()
+    version = getCurrentVersion()
 
     layout = makeLayout()
     
