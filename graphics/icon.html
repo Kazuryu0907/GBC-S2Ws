@@ -23,11 +23,17 @@
             if(msg == "init" || msg == "scored" || msg == "end"){
                 return 0;
             }
-            else if(cmd == "t"){//Player Table
-                const [PlayerName,index] = splitedMsg;
-                PlayerTable[PlayerName] = index;
+            else if(msg == "hidden"){//reset
+                iconEle.style.visibility = "hidden";
+            }
+            else if(msg == "visible"){
+                iconEle.style.visibility = "visible";
+            }
+            else if(msg == "reset"){
+                iconEle.src = "";
             }
             else if(cmd == "p"){//Player Focus
+                iconEle.style.visibility = "visible";
                 splitedMsg = msg.slice(1).split("!");
                 const [path,index] = splitedMsg;
                 console.log(index,path);
@@ -35,6 +41,7 @@
                 iconEle.src = path.replace("/graphics","");
                 // iconEle.src = "./images" + PlayerName + ".png";
             }
+            
             
         };
         </script>

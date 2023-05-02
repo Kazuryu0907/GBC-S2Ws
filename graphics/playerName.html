@@ -21,12 +21,17 @@
             if(msg == "init" || msg == "scored" || msg == "end"){
                 
             }
-            else if(cmd == "t"){//Player Table
-                // PlayerTable = {};//増えていかないように
-                const [PlayerName,index] = splitedMsg;
-                PlayerTable[PlayerName] = index;
+            else if(msg == "hidden"){//reset
+                nameEle.style.visibility = "hidden";
+            }
+            else if(msg == "visible"){
+                nameEle.style.visibility = "visible";
+            }
+            else if(msg == "reset"){
+                nameEle.textContent = ""
             }
             else if(cmd == "p"){//Player Focus
+                nameEle.style.visibility = "visible";
                 const [PlayerName,index] = splitedMsg;
                 nameEle.textContent = PlayerName
             }
