@@ -32,62 +32,38 @@ class WebsockServ:
         Get Queue from Socket and send assorted data to Websocket. 
         """
         async def stream(msg:str):
-            await self.connections["/score"].send(msg)
-            await self.connections["/icon"].send(msg)
-            await self.connections["/playerName"].send(msg)
-
+            await self.connections["/boost"].send(msg)
+        lastq = ""
         while 1:
             q:str = await self.queue.get()
             # logging.debug(f"< Queue:{q}")
             # Null文字除去
             q = q.encode().replace(b"\x00",b"").decode()
+            if q == lastq:
+                continue
             try:
                 if q == "scored":
                     await self.connections["/transition"].send(q)
-                elif q[0] == "s":
-                    await self.connections["/score"].send(q)
-                elif q[0] == "p":
-                    self.lastRawIcon,index = q[1:].split(":")
-                    simedPath = self.similary.getSimilaryPath(self.lastRawIcon)
-                    self.lastSimIcons = self.similary.sims
-                    await self.connections["/playerName"].send(q)
-                    await self.connections["/icon"].send(f"p{simedPath}!{index}")
+                elif q[0] == "t":
+                    await self.connections["/boost"].send(q)
+                elif q[0] == "T":
+                    await self.connections["/boost"].send(q)
+                elif q[0] == "b":
+                    await self.connections["/boost"].send(q)
                 elif q == "f0":
                     await stream("hidden")
                 elif q == "f1":
                     await stream("visible")
                 elif q == "end":
                     await stream("reset")
+                
 
             except Exception as e:
                 # logging.error(setTermColor("ブラウザ接続待機中...",pycolor.GREEN))
                 logging.debug(e)
                 pass
 
-    def createUITable(self) -> Table:
-        """
-        Create Websocket UI Table.
-        When all plugin is connected, self.isAllConnected will be "True" 
-
-        Returns
-        -------
-        printTable : rich.table.Table
-            Created Websocket UI
-        """
-        printTable = Table(show_header=True,header_style="bold sea_green2")
-        printTable.add_column("UI",justify="center")
-        printTable.add_column("Connection Status",justify="center")
-        UIs = ["/icon","/playerName","/score","/transition"]
-        self.isAllConnected = True
-        for UI in UIs:
-            pathColor = 'cyan1' if UI in self.connections.keys() else 'gray66'
-            connectedEmojiStatus = "[green]:white_check_mark:[/]" if UI in self.connections.keys() else "[red]:cross_mark:[/]"
-            printTable.add_row(f"[{pathColor}]{UI[1:]}[/]",connectedEmojiStatus)
-            # UIのTitle変更用
-            if UI not in self.connections.keys():
-                self.isAllConnected = False
-
-        return printTable
+            lastq = q
     
     async def handler(self,websocket) -> None:
         """

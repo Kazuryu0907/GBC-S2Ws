@@ -85,7 +85,7 @@ class WebsocketUI:
         printTable = Table(show_header=True,header_style="bold chartreuse2")
         printTable.add_column("UI",justify="center")
         printTable.add_column("Connection Status",justify="center")
-        UIs = ["/icon","/playerName","/score","/transition"]
+        UIs = ["/boost","/transition"]
         self.websock.isAllConnected = True
         for UI in UIs:
             pathColor = 'chartreuse2' if UI in self.websock.connections.keys() else 'gray66'
@@ -188,14 +188,9 @@ def makeLayout():
         Layout(name="upper",size=3),
         Layout(name="main",size=3),
         Layout(name="lower",size=10),
-        Layout(name="bot",size=10)
     )
     layout["lower"].split_row(
             Layout(name="left"),
             Layout(name="right")
         )
-    layout["bot"].split_row(
-            Layout(name="left"),
-            Layout(name="right")
-    )
     return layout

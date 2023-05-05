@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>a</title>
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="css/boost.css">
+    </head>
+    <body>
+        
+        <div class="scoreboard" id="boosts" style="visibility: hidden;">
+
+            <div class="team_names">
+                <div id="blue_team_name">AAAAAAA</div>
+                <div id="orange_team_name">BBBBBBB</div>
+            </div>
+
+            <div id="blue_1" class="boost_blue">
+                <div class="blue">
+                    <img src="static/blue.png" id="img_3">
+                    <progress id="boost_3" max="100" value="20"></progress>
+                    <div class="player_name auto_font"  id="boost_name_3">KAZURYU</div>
+                    <div class="boost_val" id="boost_val_3">100</div>
+                </div>
+            </div>
+
+            <div id="blue_2" class="boost_blue index_3">
+                <div class="blue">
+                    <img src="static/blue.png" id="img_4">
+                    <progress id="boost_4" max="100" value="0"></progress>
+                    <div class="player_name auto_font"  id="boost_name_4">Hideji</div>
+                    <div class="boost_val" id="boost_val_4">100</div>
+                </div>
+            </div>
+
+            <div id="blue_3" class="boost_blue">
+                <div class="blue">
+                    <img src="static/blue.png" id="img_5">
+                    <progress id="boost_5" max="100" value="20"></progress>
+                    <div class="player_name auto_font"  id="boost_name_5">KAZURYU</div>
+                    <div class="boost_val" id="boost_val_5">100</div>
+                </div>
+            </div>
+
+            <div id="orange_1" class="boost_orange index_0">
+                <div class="orange">
+                    <img src="static/orange.png" id="img_0">
+                    <progress id="boost_0" max="100" value="30"></progress>
+                    <div class="player_name auto_font" id="boost_name_0">HIDEKO</div>
+                    <div class="boost_val" id="boost_val_0">100</div>
+                </div>
+            </div>
+
+            <div id="orange_2" class="boost_orange index_1">
+                <div class="orange">
+                    <img src="static/orange.png" id="img_1">
+                    <progress id="boost_1" max="100" value="0"></progress>
+                    <div class="player_name auto_font" id="boost_name_1">ANGE</div>
+                    <div class="boost_val" id="boost_val_1">100</div>
+                </div>
+            </div>
+
+            <div id="orange_3" class="boost_orange">
+                <div class="orange">
+                    <img src="static/orange.png" id="img_2">
+                    <progress id="boost_2" max="100" value="0"></progress>
+                    <div class="player_name auto_font" id="boost_name_2">ANGE</div>
+                    <div class="boost_val" id="boost_val_2">100</div>
+                </div>
+            </div>
+        </div>
+	<script type="text/javascript">
+        let webSocket;
+
+        webSocket = new WebSocket("ws://localhost:8001/boost");
+        let scoreEle = document.getElementById("score");
+        let PlayerTable = {};
+
+        webSocket.onmessage = function(message){
+            
+            // let msg = message.data.slice(0,-1);//null文字除去
+            let msg = message.data;
+            let cmd = msg[0];
+            let splitedMsg = msg.slice(1).split(":");
+            if(msg == "hidden"){//reset
+                document.getElementById("boosts").style.visibility = "hidden";
+            }
+            if(msg == "visible"){
+                document.getElementById("boosts").style.visibility = "visible";
+            }
+            else if(msg == "reset"){
+                scoreEle.textContent = "";
+            }
+            else if(cmd == "b"){// Boost
+                document.getElementById("boosts").style.visibility = "visible";
+                const [boost,index] = splitedMsg;
+                document.getElementById("boost_"+index).value = parseInt(boost);
+                document.getElementById("boost_val_"+index).textContent = boost;
+            }
+            else if(cmd == "T"){// Team Name
+                const [color,name] = splitedMsg;
+                if(color == "0"){
+                    document.getElementById("blue_team_name").textContent = name;
+                }else if(color == "1"){
+                    document.getElementById("orange_team_name").textContent = name;
+                }
+            }
+            else if(cmd == "t"){// teamTable
+                const [id,index] = splitedMsg;
+                document.getElementById("boost_name_"+index).textContent = id;
+            }
+            
+        }
+	</script>
+</body>
+</html>

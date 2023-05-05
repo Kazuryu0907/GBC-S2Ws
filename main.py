@@ -41,8 +41,6 @@ async def async_multi_sleep():
     layout["main"].update(Timer())
     layout["lower"]["right"].update(WebsocketUI(websock))
     layout["lower"]["left"].update(SocketUI(socket))
-    layout["bot"]["left"].update(SimedPathUI(websock))
-    layout["bot"]["right"].update(IconsUI(websock))
 
     task1 = asyncio.create_task(socket.main(queue))
     task11 = asyncio.create_task(websock.sendDataFromQueue())

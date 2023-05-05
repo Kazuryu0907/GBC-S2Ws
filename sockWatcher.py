@@ -9,18 +9,19 @@ class SocketClient:
 
     def __init__(self) -> None:
         self.recv = None
-        self.lastData = {"Boost":None,"Scored":None,"Others":None}
+        self.lastData = {"PlayerName":None,"PlayerScore":None,"Scored":None,"Others":None}
 
     def assortData4UI(self,data) -> None:
         if data in ["end","init","f1","f0"]:
             self.lastData["Others"] = data
         elif data == "scored":
             self.lastData["Scored"] = data
-        elif data[0] == "b":
-            # Boost
-            self.lastData["Boost"] = data
-        else:
-            self.lastData["Others"] = data
+        elif data[0] == "s":
+            # Score
+            self.lastData["PlayerScore"] = data[1:].split(":")[1]
+        elif data[0] == "p":
+            # PlayerName
+            self.lastData["PlayerName"] = data[1:].split(":")[0]
 
     async def main(self,queue):
         """
@@ -44,6 +45,7 @@ class SocketClient:
             self.recv = recv
             msg = recv.decode("utf-8")
             logging.debug(msg)
+            print(msg)
             queue.put_nowait(msg)
             try:
                 self.assortData4UI(msg)

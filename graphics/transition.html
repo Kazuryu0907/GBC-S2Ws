@@ -17,9 +17,12 @@
             let cmd = msg[0];
             let splitedMsg = msg.slice(1).split(":");
             if(msg == "scored"){
-                $("#goal_v").show();
-                const v = $("#goal_v").get(0);
-                v.play();
+                const playMV = () => {
+                    $("#goal_v").show();
+                    const v = $("#goal_v").get(0);
+                    v.play();
+                };
+                setTimeout(playMV,3000);
             }
             $("#goal_v").on("ended",function(){
             $(this).hide();

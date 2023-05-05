@@ -1,0 +1,154 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "pirulen";
+  src: url("../src/fonts/ラノベPOP.otf");
+}
+* {
+  font-family: "pirulen";
+}
+
+:root {
+  --demo-t-padding-b:25px;
+  --demo-t-padding-o:60px;
+  --padding-icon-text:35px;
+  background-color: chartreuse;
+}
+
+.auto_font {
+  display: flex;
+  word-break: break-all;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.scoreboard {
+  position: relative;
+  height: 1080px;
+  width: 1920px;
+}
+
+.boost_blue {
+  position: absolute;
+  height: 113px;
+  width: 311px;
+}
+
+.boost_orange {
+  position: absolute;
+  height: 113px;
+  width: 330px;
+}
+
+.bump_ico, .bump_count, .shot_ico, .shot_count, .assi_ico, .assi_count, .save_ico, .save_count {
+  top: 77px;
+  height: 30px;
+  width: 30px;
+}
+
+.player_name {
+  top: 12px;
+  width: 220px;
+  height: 30px;
+}
+
+.boost_val {
+  font-size: 30px;
+}
+
+progress {
+  z-index: -1;
+  height: 60px;
+  width: 275px;
+  border-radius: 0;
+  background-color: gray;
+}
+
+.blue > * {
+  position: absolute;
+}
+.blue > progress {
+  top: 45px;
+  left: 15px;
+}
+.blue > progress::-webkit-progress-value {
+  background-color: blue;
+}
+.blue > .boost_val {
+  top: 18px;
+  left: 245px;
+}
+.blue > .player_name {
+  left: 16px;
+}
+
+.orange > * {
+  position: absolute;
+}
+.orange > progress {
+  top: 45.5px;
+  right: 15px;
+  transform: rotate(180deg);
+}
+.orange > progress::-webkit-progress-value {
+  background-color: orange;
+}
+.orange > .boost_val {
+  top: 20px;
+  left: 40px;
+}
+.orange > .player_name {
+  right: 20px;
+}
+
+#blue_1 {
+  top: 200px;
+}
+
+#blue_2 {
+  top: 350px;
+}
+
+#blue_3 {
+  top: 500px;
+}
+
+#orange_1 {
+  top: 200px;
+  right: 0;
+}
+
+#orange_2 {
+  top: 350px;
+  right: 0;
+}
+
+#orange_3 {
+  top: 500px;
+  right: 0;
+}
+
+
+.team_names > * {
+  position: absolute;
+  font-size: 60px;
+  color: black;
+  display: flex;
+  height: 60px;
+  width: 300px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.team_names > #blue_team_name {
+  top: 14px;
+  left: 470px;
+}
+.team_names > #orange_team_name {
+  top: 14px;
+  right: 470px;
+}
+
+.focusing {
+  box-shadow: 0 0 3px 1px rgb(164, 183, 16) inset;
+}/*# sourceMappingURL=boost.css.map */
