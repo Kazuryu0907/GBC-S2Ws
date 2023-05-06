@@ -9,7 +9,7 @@ class SocketClient:
 
     def __init__(self) -> None:
         self.recv = None
-        self.lastData = {"PlayerName":[None,0],"PlayerScore":[None,0],"Scored":[None,0],"Others":[None,0],"Team":[None,0]}
+        self.lastData = {"Team":[None,0],"PlayerName":[None,0],"PlayerScore":[None,0],"Scored":[None,0],"Others":[None,0]}
 
     def assortData4UI(self,data) -> None:
         t = time.time()
