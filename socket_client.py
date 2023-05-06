@@ -3,26 +3,28 @@ import asyncio
 import logging
 from pycolor import pycolor,setTermColor
 from rich.table import Table
-
+import time
 
 class SocketClient:
 
     def __init__(self) -> None:
         self.recv = None
-        self.lastData = {"PlayerName":None,"PlayerScore":None,"Scored":None,"Others":None}
+        self.lastData = {"PlayerName":[None,0],"PlayerScore":[None,0],"Scored":[None,0],"Others":[None,0],"Team":[None,0]}
 
     def assortData4UI(self,data) -> None:
+        t = time.time()
         if data in ["end","init","f1","f0"]:
-            self.lastData["Others"] = data
+            self.lastData["Others"] = [data,t]
         elif data == "scored":
-            self.lastData["Scored"] = data
+            self.lastData["Scored"] = [data,t]
         elif data[0] == "s":
             # Score
-            self.lastData["PlayerScore"] = data[1:].split(":")[1]
+            self.lastData["PlayerScore"] = [data[1:].split(":")[1],t]
         elif data[0] == "p":
             # PlayerName
-            self.lastData["PlayerName"] = data[1:].split(":")[0]
-
+            self.lastData["PlayerName"] = [data[1:].split(":")[0],t]
+        elif data[0] == "T":
+            self.lastData["Team"] = [data,t]
     async def main(self,queue):
         """
         Create Socket Client & On recved message,Put data to Queue.

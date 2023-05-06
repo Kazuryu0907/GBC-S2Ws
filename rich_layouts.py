@@ -132,10 +132,10 @@ class SocketUI:
         printTable.add_column("RL",justify="center")
         printTable.add_column("Connection Status",justify="center")
         # 変更あり=>orange_red1 None=>gray66 otherwise=>cyan1
-        color = lambda d,key:'gray66' if d is None else 'chartreuse2' if d == self.preLastData[key] else 'deep_pink3'
+        color = lambda d,key:'gray66' if d[0] is None else 'chartreuse2' if d[1] == self.preLastData[key][1] else 'deep_pink3'
         
         for (key,d) in self.socket.lastData.items():
-            printTable.add_row(f"[{color(d,key)}]{key}",f"[{color(d,key)}]{d}")
+            printTable.add_row(f"[{color(d,key)}]{key}",f"[{color(d,key)}]{d[0]}")
         
         self.preLastData = self.socket.lastData.copy()
         return printTable

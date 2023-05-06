@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>Pras team</title>
+</head>
+<body>
+	<img src="./images/cry.png" id="img_blue" alt="">
+    <img src="./images/cry.png" id="img_orange" alt="">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        let webSocket;
+
+        webSocket = new WebSocket("ws://localhost:8001/team");
+        let blueEle = document.getElementById("img_blue");
+        let orangeEle = document.getElementById("img_orange");
+        let PlayerTable = {};
+        webSocket.onmessage = function(message){
+            
+            // let msg = message.data.slice(0,-1);//null文字除去
+            console.log(message.data)
+            let msg = message.data;
+            let cmd = msg[0];
+            let splitedMsg = msg.slice(1).split(":");
+
+            if(msg == "init" || msg == "scored" || msg == "end"){
+                return 0;
+            }
+            else if(msg == "hidden"){//reset
+                blueEle.style.visibility = "hidden";
+                orangeEle.style.visibility = "hidden";
+            }
+            else if(msg == "visible"){
+                blueEle.style.visibility = "visible";
+                orangeEle.style.visibility = "visible";
+            }
+            else if(msg == "reset"){
+                blueEle.src = "";
+                orangeEle.src = "";
+            }
+            else if(cmd == "T"){//Player Focus
+                blueEle.style.visibility = "visible";
+                orangeEle.style.visibility = "visible";
+                const [color,path] = splitedMsg;
+                console.log(path);
+                
+                //DEBUG
+                if(color == "0"){//blue
+                    blueEle.src = path.replace("/graphics","");
+                }
+                if(color == "1"){//orange
+                    orangeEle.src = path.replace("/graphics","");
+                }
+                // iconEle.src = "./images" + PlayerName + ".png";
+            }
+            
+        };
+        </script>
+</body>
+</html>
