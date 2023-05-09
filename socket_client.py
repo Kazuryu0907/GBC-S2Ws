@@ -13,7 +13,7 @@ class SocketClient:
 
     def assortData4UI(self,data) -> None:
         t = time.time()
-        if data in ["end","init","f1","f0"]:
+        if data in ["end","init","f1","f0","f0n"]:
             self.lastData["Others"] = [data,t]
         elif data == "scored":
             self.lastData["Scored"] = [data,t]
@@ -40,18 +40,21 @@ class SocketClient:
         s = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
         s.bind((host,port))
         s.setblocking(False)
-
+        preRecv = ""
         while 1:
             loop = asyncio.get_event_loop()
             recv,_ = await loop.sock_recvfrom(s,256)
             self.recv = recv
             msg = recv.decode("utf-8")
+            if msg == preRecv:
+                continue
             logging.debug(msg)
             queue.put_nowait(msg)
             try:
                 self.assortData4UI(msg)
             except:
                 pass
+            preRecv = msg
 
         socket.close()
 

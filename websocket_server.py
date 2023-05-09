@@ -39,7 +39,6 @@ class WebsockServ:
             await self.connections["/icon"].send(msg)
             await self.connections["/playerName"].send(msg)
             await self.connections["/team"].send(msg)
-
         while 1:
             q:str = await self.queue.get()
             # logging.debug(f"< Queue:{q}")
@@ -71,6 +70,10 @@ class WebsockServ:
                     await stream("hidden")
                 elif q == "f1":
                     await stream("visible")
+                elif q == "f0n":
+                    await self.connections["/playerName"].send("hidden")
+                    await self.connections["/score"].send("hidden")
+                    await self.connections["/icon"].send("hidden")
                 elif q == "end":
                     await stream("reset")
 
@@ -79,6 +82,7 @@ class WebsockServ:
                 logging.debug(e)
                 pass
 
+        
     async def handler(self,websocket) -> None:
         """
         Handler for Websocket.(called when new socket connected)
