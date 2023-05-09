@@ -55,7 +55,7 @@ class Updater:
         self.console.print(f"[cyan][+]Current Version: {self.currentVersion}")
         self.console.print(f"[cyan][+]Latest Version: {self.latestVersion}")
         if not self.latestVersion == self.currentVersion:
-            self.console.print("[cyan][+]Avable Update")
+            self.console.print("[cyan][+]Available Update")
             # assetsのzipファイルのurl
             downloadUrl = self.latestRele.assets[0].browser_download_url
             # DL file

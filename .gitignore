@@ -13,3 +13,5 @@ test.log
 main.spec
 fullscreen.py
 GBC-S2Ws/
+graphics/images/*
+graphics/teams/*
