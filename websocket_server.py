@@ -50,7 +50,7 @@ class WebsockServ:
                     await self.connections["/transition"].send(q)
                     # UI消す
                     for path in ["/score","/icon","/playerName"]:
-                        await self.connections[path].send("hidden")
+                        await self.connections[path].send("reset")
                 elif q[0] == "s":
                     await self.connections["/score"].send(q)
                 elif q[0] == "p":

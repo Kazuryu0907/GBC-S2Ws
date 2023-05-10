@@ -9,7 +9,7 @@ dist/
 test.log
 *.cpp
 *.txt
-/*.exe
+*.exe
 main.spec
 fullscreen.py
 GBC-S2Ws/
