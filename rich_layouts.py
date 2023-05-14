@@ -85,7 +85,7 @@ class WebsocketUI:
         printTable = Table(show_header=True,header_style="bold chartreuse2")
         printTable.add_column("UI",justify="center")
         printTable.add_column("Connection Status",justify="center")
-        UIs = ["/icon","/playerName","/score","/transition"]
+        UIs = ["/team","/icon","/playerName","/score","/transition"]
         self.websock.isAllConnected = True
         for UI in UIs:
             pathColor = 'chartreuse2' if UI in self.websock.connections.keys() else 'gray66'
@@ -132,10 +132,10 @@ class SocketUI:
         printTable.add_column("RL",justify="center")
         printTable.add_column("Connection Status",justify="center")
         # 変更あり=>orange_red1 None=>gray66 otherwise=>cyan1
-        color = lambda d,key:'gray66' if d is None else 'chartreuse2' if d == self.preLastData[key] else 'deep_pink3'
+        color = lambda d,key:'gray66' if d[0] is None else 'chartreuse2' if d[1] == self.preLastData[key][1] else 'deep_pink3'
         
         for (key,d) in self.socket.lastData.items():
-            printTable.add_row(f"[{color(d,key)}]{key}",f"[{color(d,key)}]{d}")
+            printTable.add_row(f"[{color(d,key)}]{key}",f"[{color(d,key)}]{d[0]}")
         
         self.preLastData = self.socket.lastData.copy()
         return printTable
@@ -180,6 +180,45 @@ class IconsUI:
             self.index = 0 if self.index + 1 == self.fileLen else self.index + 1
         return Panel(Align.center(printTable),title=f"[dark_orange3]Loaded Icon Files:[chartreuse2] {self.fileLen}",border_style="cyan3")
 
+class SimedTeamPathUI:
+    """Display Similary Path"""
+    def __init__(self,websock:WebsockServ) -> None:
+        self.websock = websock
+        
+    def __rich__(self):
+        printTree = Tree(f"[chartreuse2]{self.websock.lastRawTeam}")
+        simTeams = self.websock.lastSimTeams.copy()
+        for i in range(min(10-2,len(simTeams))):
+            fname,per,_ = list(simTeams[i])
+            color = "dark_orange3" if i == 0 else "white"
+            printTree.add(f"[chartreuse2]{fname}:[{color}]{round(per,2)}%")
+
+        return Panel(Align.center(printTree),title="[dark_orange3]Team Similary",border_style="cyan3")
+
+class TeamsUI:
+    """Display Icon Files"""
+    def __init__(self,websock:WebsockServ) -> None:
+        self.sim = websock.similaryTeam
+        self.fileNames = self.sim.fileNamesEx.copy()
+        self.index = 0
+        self.WIDTH = 10-2
+        self.fileLen = len(self.fileNames)
+        self.cushion = 0
+        self.MaxCushion = 3
+
+    def __rich__(self):
+        printTable = Table(show_header=False,show_edge=False)
+        printTable.add_column(f"[dark_orange3]Files:[chartreuse2]{self.fileLen}",style="chartreuse2")
+        calcMod = lambda x:x % self.fileLen
+        zeroColor = lambda x: "dark_orange3" if x == 1 else "white" 
+        for i in range(self.WIDTH):
+            printTable.add_row(f"[white][{zeroColor(calcMod(i+self.index)+1)}]{calcMod(i+self.index)+1}[/]:[/] {self.fileNames[calcMod(i+self.index)]}")
+        
+        self.cushion += 1
+        if self.cushion == self.MaxCushion:
+            self.cushion = 0
+            self.index = 0 if self.index + 1 == self.fileLen else self.index + 1
+        return Panel(Align.center(printTable),title=f"[dark_orange3]Loaded Team Files:[chartreuse2] {self.fileLen}",border_style="cyan3")
 
 def makeLayout():
     """Create Layout"""
@@ -187,14 +226,19 @@ def makeLayout():
     layout.split_column(
         Layout(name="upper",size=3),
         Layout(name="main",size=3),
-        Layout(name="lower",size=10),
-        Layout(name="bot",size=10)
+        Layout(name="lower",size=11),
+        Layout(name="bot",size=6),
+        Layout(name="team",size=6),
     )
     layout["lower"].split_row(
             Layout(name="left"),
             Layout(name="right")
         )
     layout["bot"].split_row(
+            Layout(name="left"),
+            Layout(name="right")
+    )
+    layout["team"].split_row(
             Layout(name="left"),
             Layout(name="right")
     )

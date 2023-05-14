@@ -5,7 +5,7 @@ from rich.live import Live
 from rich.console import Console
 from socket_client import SocketClient
 from websocket_server import WebsockServ
-from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI
+from rich_layouts import WebsocketUI,Header,makeLayout,SocketUI,Timer,SimedPathUI,IconsUI,SimedTeamPathUI,TeamsUI
 from similary_file import SimilaryFile
 import os
 import sys
@@ -34,7 +34,11 @@ async def async_multi_sleep():
     queue = asyncio.Queue()
     simPath = "./graphics/images/*"
     sim = SimilaryFile(simPath)
-    websock = WebsockServ(queue,sim)
+    simTeamPath = "./graphics/teams/*"
+    simTeam = SimilaryFile(simTeamPath)
+
+
+    websock = WebsockServ(queue,sim,simTeam)
     socket = SocketClient()
 
     layout["upper"].update(Header(version))
@@ -43,6 +47,8 @@ async def async_multi_sleep():
     layout["lower"]["left"].update(SocketUI(socket))
     layout["bot"]["left"].update(SimedPathUI(websock))
     layout["bot"]["right"].update(IconsUI(websock))
+    layout["team"]["left"].update(SimedTeamPathUI(websock))
+    layout["team"]["right"].update(TeamsUI(websock))
 
     task1 = asyncio.create_task(socket.main(queue))
     task11 = asyncio.create_task(websock.sendDataFromQueue())
@@ -59,3 +65,4 @@ try:
         asyncio.run(async_multi_sleep())
 except Exception as e:
     console.print_exception(extra_lines=5,show_locals=True)
+    logging.exception("Error Here.")

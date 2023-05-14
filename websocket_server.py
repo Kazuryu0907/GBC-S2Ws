@@ -10,7 +10,7 @@ class WebsockServ:
     """
     Websocket Server 4 GBC-S2Ws
     """
-    def __init__(self,queue:asyncio.Queue,sim:SimilaryFile) -> None:
+    def __init__(self,queue:asyncio.Queue,sim:SimilaryFile,simTeam:SimilaryFile) -> None:
         """
         Parameters
         ----------
@@ -24,8 +24,11 @@ class WebsockServ:
         self.connections = {}
         self.isUpdatebleTable = True
         self.similary = sim
+        self.similaryTeam = simTeam
         self.lastRawIcon = "None"
+        self.lastRawTeam = "None"
         self.lastSimIcons = []
+        self.lastSimTeams = []
 
     async def sendDataFromQueue(self) -> None:
         """
@@ -35,15 +38,19 @@ class WebsockServ:
             await self.connections["/score"].send(msg)
             await self.connections["/icon"].send(msg)
             await self.connections["/playerName"].send(msg)
-
+            await self.connections["/team"].send(msg)
         while 1:
             q:str = await self.queue.get()
             # logging.debug(f"< Queue:{q}")
             # Null文字除去
             q = q.encode().replace(b"\x00",b"").decode()
+
             try:
                 if q == "scored":
                     await self.connections["/transition"].send(q)
+                    # UI消す
+                    for path in ["/score","/icon","/playerName"]:
+                        await self.connections[path].send("reset")
                 elif q[0] == "s":
                     await self.connections["/score"].send(q)
                 elif q[0] == "p":
@@ -52,10 +59,21 @@ class WebsockServ:
                     self.lastSimIcons = self.similary.sims
                     await self.connections["/playerName"].send(q)
                     await self.connections["/icon"].send(f"p{simedPath}!{index}")
+                elif q[0] == "T":
+                    color,team = q[1:].split(":")
+                    fileName = f'{"b" if color == "0" else "o"}_{team}'
+                    self.lastRawTeam = fileName
+                    simedPath = self.similaryTeam.getSimilaryPath(fileName)
+                    self.lastSimTeams = self.similaryTeam.sims
+                    await self.connections["/team"].send(f"T{color}!{simedPath}")
                 elif q == "f0":
                     await stream("hidden")
                 elif q == "f1":
                     await stream("visible")
+                elif q == "f0n":
+                    await self.connections["/playerName"].send("hidden")
+                    await self.connections["/score"].send("hidden")
+                    await self.connections["/icon"].send("hidden")
                 elif q == "end":
                     await stream("reset")
 
@@ -64,31 +82,7 @@ class WebsockServ:
                 logging.debug(e)
                 pass
 
-    def createUITable(self) -> Table:
-        """
-        Create Websocket UI Table.
-        When all plugin is connected, self.isAllConnected will be "True" 
-
-        Returns
-        -------
-        printTable : rich.table.Table
-            Created Websocket UI
-        """
-        printTable = Table(show_header=True,header_style="bold sea_green2")
-        printTable.add_column("UI",justify="center")
-        printTable.add_column("Connection Status",justify="center")
-        UIs = ["/icon","/playerName","/score","/transition"]
-        self.isAllConnected = True
-        for UI in UIs:
-            pathColor = 'cyan1' if UI in self.connections.keys() else 'gray66'
-            connectedEmojiStatus = "[green]:white_check_mark:[/]" if UI in self.connections.keys() else "[red]:cross_mark:[/]"
-            printTable.add_row(f"[{pathColor}]{UI[1:]}[/]",connectedEmojiStatus)
-            # UIのTitle変更用
-            if UI not in self.connections.keys():
-                self.isAllConnected = False
-
-        return printTable
-    
+        
     async def handler(self,websocket) -> None:
         """
         Handler for Websocket.(called when new socket connected)
